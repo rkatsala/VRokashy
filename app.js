@@ -10,6 +10,7 @@ var SuperAdmin = require('./models/superadmin');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
+var superadmins = require('./routes/superadmins');
 
 var app = express();
 
@@ -27,6 +28,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
+app.use('/superadmins', superadmins);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

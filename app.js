@@ -5,6 +5,9 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var User = require('./models/user');
+var SuperAdmin = require('./models/superadmin');
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -55,6 +58,13 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
+
+// tests
+
+require('./testModels');
+console.log("====== User.db ======")
+console.log(User.db);
 
 
 module.exports = app;

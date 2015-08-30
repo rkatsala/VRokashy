@@ -1,20 +1,19 @@
 var express = require('express');
 var router = express.Router();
 
-var User = require('../models/user');
-//var db = User.db;
+//var User = require('../models/user');
 
+var userHandlers = require('../handlers/user');
+ 
+ 
+router.get('/', userHandlers.showUsers);
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-  //console.log(db);
-  res.send(User.db);
-});
+router.get('/ids', userHandlers.showUsersById);
 
-router.get('/:id', function(req, res, next) {
-  var userId = req.params.id;
-  res.send(User.db[userId]);
-});
+router.get('/:id', userHandlers.showProfile);
 
+router.get('/:id/content', userHandlers.showContent);
+
+router.get('/:id/content/:type', userHandlers.showContentType);
 
 module.exports = router;

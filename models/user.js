@@ -90,6 +90,8 @@ User.prototype.showProfile = function() {
   }
   
   console.dir(props);
+  
+  return props;
 }
 
 // Створення контенту користувача

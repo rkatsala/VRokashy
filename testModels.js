@@ -46,13 +46,13 @@ module.exports = (function() {
 
   user.showContent("post");
 
-  console.log("===== Редагування контенту =====");
-  user.editContent('post', 1, 'Другий пост', 'Редагований текст');
-  user.showContent('post');
+  // console.log("===== Редагування контенту =====");
+  // user.editContent('post', 1, 'Другий пост', 'Редагований текст');
+  // user.showContent('post');
 
-  console.log("===== Видалення контенту =====");
-  user.removeContent('post', 1);
-  user.showContent('post');
+  // console.log("===== Видалення контенту =====");
+  // user.removeContent('post', 1);
+  // user.showContent('post');
 
   console.log("===== Додавання друзів =====");
   user.addFriend("rkatsala@gmail.com");
@@ -86,19 +86,19 @@ module.exports = (function() {
   console.log("===== Перегляд контенту користувача адміністратором  =====");
   admin.showUserContent("user@user.org", 'post');
 
-  console.log("===== Видалення контенту користувача =====");
-  console.log("----- До -----");
-  user.showContent('post');
-  admin.removeUserContent("user@user.org", 'post', 1);
-  console.log("----- Після -----");
-  user.showContent('post');
-  console.log("----- Видалення типу контенту -----");
-  admin.removeUserContent("user@user.org", 'post');
-  user.showContent('post');
+  // console.log("===== Видалення контенту користувача =====");
+  // console.log("----- До -----");
+  // user.showContent('post');
+  // admin.removeUserContent("user@user.org", 'post', 1);
+  // console.log("----- Після -----");
+  // user.showContent('post');
+  // console.log("----- Видалення типу контенту -----");
+  // admin.removeUserContent("user@user.org", 'post');
+  // user.showContent('post');
 
-  console.log("===== Видалення користувача =====");
-  admin.removeUser("user@user.org");
-  admin.showUsers();
+  // console.log("===== Видалення користувача =====");
+  // admin.removeUser("user@user.org");
+  // admin.showUsers();
 
   console.log("===== Вхід та вихід користувача і адміністратора =====");
   // Розкоментувати, щоб перевірити

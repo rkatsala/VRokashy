@@ -31,6 +31,21 @@ exports.showProfile = function(req, res, next) {
   res.status(200).render("users", {title: userProfile._fullName, body: userProfileString});
 };
 
+exports.postProfile = function(req, res, next) {
+  var userId = req.params.id;
+  res.send("Метод POST для профілю користувача " + User.db[userId]._fullName);
+};
+
+exports.putProfile = function(req, res, next) {
+  var userId = req.params.id;
+  res.send("Метод PUT для профілю користувача " + User.db[userId]._fullName);
+};
+
+exports.deleteProfile = function(req, res, next) {
+  var userId = req.params.id;
+  res.send("Метод DELETE для профілю користувача " + User.db[userId]._fullName);
+};
+
 exports.showContent = function(req, res, next) {
   var userId = req.params.id;
   var userProfile = User.db[userId].showProfile();

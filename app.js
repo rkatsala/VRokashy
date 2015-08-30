@@ -26,6 +26,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// routes
 app.use('/', routes);
 app.use('/users', users);
 app.use('/superadmins', superadmins);
@@ -68,5 +69,13 @@ require('./testModels');
 console.log("====== User.db ======")
 console.log(User.db);
 
-
-module.exports = app;
+if (module.parent) {
+  module.exports = app;
+} else {
+  var msg = "\nPlease, run the app like this:\n"
+    + "npm start \n" 
+    + "or\n"
+    + "node ./bin/www";
+  
+  console.log(msg);
+}

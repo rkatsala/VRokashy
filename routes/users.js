@@ -8,7 +8,11 @@ router.get('/', userHandlers.showUsers);
 
 router.get('/ids', userHandlers.showUsersById);
 
-router.get('/:id', userHandlers.showProfile);
+router.route('/:id')
+  .get(userHandlers.showProfile)
+  .post(userHandlers.postProfile)
+  .put(userHandlers.putProfile)
+  .delete(userHandlers.deleteProfile);
 
 router.get('/:id/content', userHandlers.showContent);
 

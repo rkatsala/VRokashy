@@ -1,4 +1,5 @@
 var mongoose = require('mongoose');
+var async = require('async');
 
 mongoose.connect('mongodb://localhost/vrokashy');
 
@@ -11,25 +12,36 @@ db.once('open', function() {
     
     var User = require('./models/userMongo');
     
-    var user = new User({
-      name: {
-        full: "Вася Пупкін"
+    var users = [
+      {
+        name: {full: "Роман Кацала"}, 
+        email: "rkatsala@gmail.com", 
+        password: "qwerty1234"
       },
-      email: "user@user.org",
-      password: "123"
+      {
+        name: {full: "Вася Пупкін"},
+        email: "user@user.org",
+        password: "123"
+      },
+      {
+        name: {full: "Ваня Доу"},
+        email: "john@doe.com",
+        password: "qqq111"
+      }
+    ];
+    
+    async.each(users, function(userData, callback) {
+      var user = new User(userData);
+      user.save(function(err, user) {
+        if (err) return callback(err);
+        console.log("%s saved to database", user.name.full);
+        callback();
+      });
+    }, function(err) {
+      if (err) return console.error(err);
+      mongoose.disconnect();
     });
     
-    user.save(function(err, user) {
-      if (err) return console.error(err);
-      console.dir(user.name.full);
-      
-      User.find(function(err, users) {
-        if (err) return console.error(err);
-        console.dir(users);
-        
-        mongoose.disconnect();
-      });
-    });
   });
 });
 

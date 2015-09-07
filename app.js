@@ -5,12 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
-var User = require('./models/user');
-var SuperAdmin = require('./models/superadmin');
+var mongoose = require('mongoose');
+mongoose.connect('mongodb://localhost/vrokashy');
+
+// var User = require('./models/user');
+// var SuperAdmin = require('./models/superadmin');
 
 var routes = require('./routes/index');
-var users = require('./routes/users');
-var superadmins = require('./routes/superadmins');
+var users = require('./routes/userRouter');
+// var superadmins = require('./routes/superadmins');
 
 var app = express();
 
@@ -29,7 +32,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 // routes
 app.use('/', routes);
 app.use('/users', users);
-app.use('/superadmins', superadmins);
+// app.use('/superadmins', superadmins);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
@@ -65,9 +68,9 @@ app.use(function(err, req, res, next) {
 
 // tests
 
-require('./testModels');
-console.log("====== User.db ======")
-console.log(User.db);
+// require('./testModels');
+// console.log("====== User.db ======")
+// console.log(User.db);
 
 if (module.parent) {
   module.exports = app;

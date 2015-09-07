@@ -1,19 +1,20 @@
 var mongoose = require('mongoose');
-// mongoose.connect('mongodb://localhost/vrokashy');
-
 var Schema = mongoose.Schema;
 
+var postSchema = require('./contentMongo').postSchema;
+
 var userSchema = new Schema({
-  name: {
-    first: String,
-    last: String
-  },
-  email: {
-    type: String,
-    unique: true
-  },
-  password: String
-});
+		name : {
+			first : String,
+			last : String
+		},
+		email : {
+			type : String,
+			unique : true
+		},
+		password : String,
+    posts: [postSchema]
+	});
 
 userSchema.virtual('name.full')
   .get(function () {
@@ -25,4 +26,6 @@ userSchema.virtual('name.full')
     this.name.last = split[1];
   });
 
-module.exports = mongoose.model('User', userSchema);
+var User = mongoose.model('User', userSchema);
+
+module.exports = User;

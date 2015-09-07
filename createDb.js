@@ -32,9 +32,17 @@ db.once('open', function() {
     
     async.each(users, function(userData, callback) {
       var user = new User(userData);
+
+      user.posts.push(
+        {body: "1-й пост"}, 
+        {body: "2-й пост"},
+        {body: "3-й пост"}
+      );
+      
       user.save(function(err, user) {
         if (err) return callback(err);
         console.log("%s saved to database", user.name.full);
+        console.dir(user);
         callback();
       });
     }, function(err) {

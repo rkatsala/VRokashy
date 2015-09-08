@@ -3,12 +3,12 @@ var async = require('async');
 
 mongoose.connect('mongodb://localhost/vrokashy');
 
-var db = mongoose.connection;
+var conn = mongoose.connection;
 
-db.on('error', console.error);
+conn.on('error', console.error);
 
-db.once('open', function() {
-  db.db.dropDatabase(function(err) {
+conn.once('open', function() {
+  conn.db.dropDatabase(function(err) {
     
     var User = require('./models/userMongo');
     

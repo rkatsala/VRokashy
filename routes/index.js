@@ -10,5 +10,7 @@ router.get('/ip', function(req, res, next){
   res.status(200).send(req.ip);
 });
 
+// user routes
+router.use('/user', require('./userRouter'));
 
 module.exports = router;

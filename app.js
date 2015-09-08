@@ -4,18 +4,18 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/vrokashy');
 
-// var User = require('./models/user');
-// var SuperAdmin = require('./models/superadmin');
-
-var routes = require('./routes/index');
-var users = require('./routes/userRouter');
-// var superadmins = require('./routes/superadmins');
+var routes = require('./routes');
 
 var app = express();
+
+// connection to mongodb
+mongoose.connect('mongodb://localhost/vrokashy');
+mongoose.connection.on('error', console.error);
+mongoose.connection.on('connected', function() {
+  console.log('Connected to DB');
+});
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,8 +31,6 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // routes
 app.use('/', routes);
-app.use('/users', users);
-// app.use('/superadmins', superadmins);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

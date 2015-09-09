@@ -8,9 +8,26 @@ exports.showUsers = function(req, res, next) {
 };
 
 exports.showProfile = function(req, res, next) {
-  User.findOne({_id: req.params.id}, function(err, user) {
+  User.findById(req.params.id, function(err, user) {
     if (err) return next(err);
-    // if (!user) next();
+    if (!user) return next();
     res.status(200).send(user);
   });
 }
+
+exports.showAllPosts = function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) return next(err);
+    if (!user) return next();
+    res.status(200).send(user.posts);
+  });
+}
+
+exports.showPost = function(req, res, next) {
+  User.findById(req.params.id, function(err, user) {
+    if (err) return next(err);
+    if (!user) return next();
+    res.status(200).send(user.posts.id(req.params.postid));
+  });
+}
+

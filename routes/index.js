@@ -11,6 +11,6 @@ router.get('/ip', function(req, res, next){
 });
 
 // user routes
-router.use('/user', require('./userRouter'));
+router.use('/users', require('./userRouter'));
 
 module.exports = router;

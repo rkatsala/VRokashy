@@ -11,6 +11,7 @@ conn.once('open', function() {
   conn.db.dropDatabase(function(err) {
     
     var User = require('./models/userMongo');
+    var Post = require('./models/contentMongo').Post;
     
     var users = [
       {
@@ -32,17 +33,28 @@ conn.once('open', function() {
     
     async.each(users, function(userData, callback) {
       var user = new User(userData);
-
-      user.posts.push(
-        {body: "1-й пост"}, 
-        {body: "2-й пост"},
-        {body: "3-й пост"}
-      );
       
+      var posts = [
+        { body: "1-й пост", _creator: user._id },
+        { body: "2-й пост", _creator: user._id },
+        { body: "3-й пост", _creator: user._id },
+      ];
+      
+      async.each(posts, function(postData, callback) {
+        var post = new Post(postData);
+        post.save(function(err, post) {
+          if (err) return callback(err);
+          console.log("Post of %s saved to database", user.name.full);
+          // console.dir(post);
+          callback();
+        });
+        user.posts.push(post);
+      });
+
       user.save(function(err, user) {
         if (err) return callback(err);
         console.log("%s saved to database", user.name.full);
-        console.dir(user);
+        // console.dir(user);
         callback();
       });
     }, function(err) {

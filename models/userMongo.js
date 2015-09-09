@@ -1,7 +1,7 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
-var postSchema = require('./contentMongo').postSchema;
+var Post = require('./contentMongo').Post;
 
 var userSchema = new Schema({
 		name : {
@@ -13,7 +13,7 @@ var userSchema = new Schema({
 			unique : true
 		},
 		password : String,
-    posts: [postSchema]
+    posts: [{ type: Schema.Types.ObjectId, ref: 'Post'}]
 	});
 
 userSchema.virtual('name.full')

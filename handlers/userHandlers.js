@@ -1,4 +1,5 @@
 var User = require('../models/userMongo');
+var Post = require('../models/contentMongo').Post;
 
 exports.showUsers = function(req, res, next) {
   User.find(function(err, users) {
@@ -16,7 +17,9 @@ exports.showProfile = function(req, res, next) {
 }
 
 exports.showAllPosts = function(req, res, next) {
-  User.findById(req.params.id, function(err, user) {
+  User.findById(req.params.id)
+  .populate('posts')
+  .exec(function(err, user) {
     if (err) return next(err);
     if (!user) return next();
     res.status(200).send(user.posts);
@@ -24,10 +27,12 @@ exports.showAllPosts = function(req, res, next) {
 }
 
 exports.showPost = function(req, res, next) {
-  User.findById(req.params.id, function(err, user) {
+  Post.findById(req.params.postid)
+  .populate('_creator', 'name')
+  .exec(function(err, post) {
     if (err) return next(err);
-    if (!user) return next();
-    res.status(200).send(user.posts.id(req.params.postid));
+    if (!post) return next();
+    res.status(200).send(post);
   });
 }
 

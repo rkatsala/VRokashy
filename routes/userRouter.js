@@ -3,13 +3,13 @@ var userRouter = express.Router();
 var userHandlers = require('../handlers/userHandlers');
 // var postRouter = require('./postRouter');
 
-userRouter.get('/', userHandlers.showUsers);
+userRouter.get('/', userHandlers.getAllUsers);
 
 userRouter.route('/:id')
-  .get(userHandlers.showProfile);
-  
-userRouter.get('/:id/posts', userHandlers.showAllPosts);
+.get(userHandlers.getUser);
 
-userRouter.use('/:id/posts/:postid', userHandlers.showPost);
+userRouter.get('/:id/posts', userHandlers.getAllPosts);
+
+userRouter.get('/:id/posts/:postid', userHandlers.getPost);
 
 module.exports = userRouter;

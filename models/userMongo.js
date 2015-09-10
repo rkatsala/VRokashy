@@ -1,6 +1,5 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-
 var Post = require('./contentMongo').Post;
 
 var userSchema = new Schema({

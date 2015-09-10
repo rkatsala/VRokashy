@@ -49,14 +49,16 @@ conn.once('open', function() {
           callback();
         });
         user.posts.push(post);
+      }, function(err) {
+        if (err) return console.error(err);
+        user.save(function(err, user) {
+          if (err) return callback(err);
+          console.log("%s saved to database", user.name.full);
+          // console.dir(user);
+          callback();
+        });
       });
-
-      user.save(function(err, user) {
-        if (err) return callback(err);
-        console.log("%s saved to database", user.name.full);
-        // console.dir(user);
-        callback();
-      });
+      
     }, function(err) {
       if (err) return console.error(err);
       mongoose.disconnect();

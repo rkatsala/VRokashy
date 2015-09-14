@@ -5,6 +5,8 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
+var session = require('express-session');
+var MongoStore = require('connect-mongo')(session);
 
 var routes = require('./routes');
 
@@ -28,6 +30,22 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
+app.use(session({
+  secret: 'SmallIsBeautiful',
+  saveUninitialized: false,
+  resave: false,
+  store: new MongoStore({ 
+    mongooseConnection: mongoose.connection,
+    touchAfter: 24 * 3600
+  })
+}));
+
+// session test
+app.use(function(req, res, next) {
+  req.session.views = req.session.views + 1 || 1;
+  next();
+});
 
 // routes
 app.use('/', routes);

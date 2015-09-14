@@ -10,6 +10,10 @@ router.get('/ip', function(req, res, next){
   res.status(200).send(req.ip);
 });
 
+router.get('/views', function(req, res, next) {
+  res.send("Число переглядів: " + req.session.views);
+});
+
 // user routes
 router.use('/users', require('./userRouter'));
 

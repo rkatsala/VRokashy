@@ -1,7 +1,6 @@
 var express = require('express');
 var userRouter = express.Router();
 var userHandlers = require('../handlers/userHandlers');
-// var postRouter = require('./postRouter');
 
 userRouter.get('/', userHandlers.getAllUsers);
 

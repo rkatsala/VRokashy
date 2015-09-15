@@ -2,6 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Post = require('./contentMongo').Post;
 var crypto = require('crypto');
+var HttpError = require('../handlers/errorHandler').HttpError;
 
 var userSchema = new Schema({
     name : {
@@ -68,7 +69,7 @@ userSchema.statics.signUp = function(userData, callback) {
   User.findOne({email: userData.email}, function(err, user){
     if (err) return next(err);
     if (user) {
-      callback(new Error("Користувач з таким email вже зареєстрований"));
+      callback(new HttpError(403, "Користувач з таким email вже зареєстрований"));
     } else {
       User.create(userData, callback);
     }
@@ -84,10 +85,10 @@ userSchema.statics.login = function(email, password, callback) {
       if (user.checkPassword(password)) {
         callback(null, user);
       } else {
-        callback(new Error("Не дійсний пароль"));
+        callback(new HttpError(403, "Не дійсний пароль"));
       }
     } else {
-      callback(new Error("Користувач з таким email не зареєстрований"));
+      callback(new HttpError(404, "Користувач з таким email не зареєстрований"));
     }
   });
 };

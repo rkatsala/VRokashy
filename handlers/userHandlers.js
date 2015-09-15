@@ -1,4 +1,4 @@
-var User = require('../models/userMongo');
+var User = require('../models/userMongo').User;
 var Post = require('../models/contentMongo').Post;
 
 exports.getAllUsers = function(req, res, next) {

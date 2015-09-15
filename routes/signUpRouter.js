@@ -1,10 +1,10 @@
 var express = require('express');
 var signUpRouter = express.Router();
-var User = require('../models/userMongo');
-var signUpHandler = require('../handlers/signUpHandler');
+var User = require('../models/userMongo').User;
+var signUpHandlers = require('../handlers/signUpHandlers');
 
 signUpRouter.route('/')
-  .get(signUpHandler.get)
-  .post(signUpHandler.post);
+  .get(signUpHandlers.get)
+  .post(signUpHandlers.post);
   
 module.exports = signUpRouter;

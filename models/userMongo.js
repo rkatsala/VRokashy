@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 var Post = require('./contentMongo').Post;
 var crypto = require('crypto');
-var HttpError = require('../handlers/errorHandler').HttpError;
+var HttpError = require('../handlers/errorHandlers').HttpError;
 
 var userSchema = new Schema({
     name : {
@@ -93,6 +93,5 @@ userSchema.statics.login = function(email, password, callback) {
   });
 };
 
-var User = mongoose.model('User', userSchema);
+exports.User = mongoose.model('User', userSchema);
 
-module.exports = User;

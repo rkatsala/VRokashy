@@ -1,4 +1,4 @@
-var User = require('../models/userMongo');
+var User = require('../models/userMongo').User;
 
 exports.get = function (req, res, next) {
 	res.status(200).send("Реєстрація")

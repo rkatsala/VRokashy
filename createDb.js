@@ -10,7 +10,7 @@ conn.on('error', console.error);
 conn.once('open', function() {
   conn.db.dropDatabase(function(err) {
     
-    var User = require('./models/userMongo');
+    var User = require('./models/userMongo').User;
     var Post = require('./models/contentMongo').Post;
     
     var users = [

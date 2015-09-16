@@ -4,11 +4,13 @@ var userHandlers = require('../handlers/userHandlers');
 
 userRouter.get('/', userHandlers.getAllUsers);
 
-userRouter.route('/:id')
-.get(userHandlers.getUser);
+userRouter.route('/:user_id')
+  .get(userHandlers.getUser);
 
-userRouter.get('/:id/posts', userHandlers.getAllPosts);
+userRouter.route('/:user_id/posts')
+  .get(userHandlers.getAllPosts)
+  .post(userHandlers.postPost);
 
-userRouter.get('/:id/posts/:postid', userHandlers.getPost);
+userRouter.get('/:user_id/posts/:post_id', userHandlers.getPost);
 
 module.exports = userRouter;

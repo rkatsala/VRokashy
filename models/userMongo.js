@@ -5,37 +5,36 @@ var crypto = require('crypto');
 var HttpError = require('../handlers/errorHandlers').HttpError;
 
 var userSchema = new Schema({
-    name : {
-      first : {
-        type : String,
-        required : true
+    name: {
+      first: {
+        type: String,
+        required: true
       },
-      last : {
-        type : String,
-        required : true
+      last: {
+        type: String,
+        required: true
       }
     },
-    email : {
-      type : String,
-      unique : true,
-      required : true
+    email: {
+      type: String,
+      unique: true,
+      required: true
     },
-    hashedPassword : {
-      type : String,
-      required : true
+    hashedPassword: {
+      type: String,
+      required: true
     },
-    salt : {
-      type : String,
-      required : true
+    salt: {
+      type: String,
+      required: true
     },
-    created : {
-      type : Date,
-    default:
-      Date.now
+    created: {
+      type: Date,
+      default: Date.now
     },
-    posts : [{
-        type : Schema.Types.ObjectId,
-        ref : 'Post'
+    posts: [{
+        type: Schema.Types.ObjectId,
+        ref: 'Post'
       }]
   });
 

@@ -34,25 +34,24 @@ exports.getAllPosts = function(req, res, next) {
 
 exports.postPost = function(req, res, next) {
   var body = req.body.body;
-  var creator = req.params.user_id; // req.session.user;
+  var creator = req.params.user_id;
   
   async.waterfall([
     // Verify user existence
     function(callback) {
-      User.findById(creator, function(err, user) {
-        if (err) return next(err);
-        
-        if (!user) {
-          callback(new HttpError(404, "Користувач з таким id не зареєстрований"));
-        } else {
-          callback(null, user);
-        }
-      });
+      User.findById(creator, callback);
+    },
+    function(user, callback) {
+      if (!user) {
+        callback(new HttpError(404, "Користувач з таким id не зареєстрований"));
+      } else {
+        callback(null, user);
+      }
     },
     // Create post
     function(user, callback) {
       Post.create({ body: body, _creator: user._id}, function(err, post) {
-        if (err) return next(err);
+        if (err) return callback(err);
         
         user.posts.push(post);
         user.save(callback);
@@ -66,13 +65,42 @@ exports.postPost = function(req, res, next) {
 }
 
 exports.getPost = function(req, res, next) {
-  Post.findById(req.params.post_id)
-    .where('_creator').equals(req.params.user_id)
+  var user_id = req.params.user_id;
+  var post_id = req.params.post_id;
+  
+  Post.findById(post_id)
+    .where('_creator').equals(user_id)
     .select('body date')
     .exec(function(err, post) {
       if (err) return next(err);
       if (!post) return next();
       res.status(200).send(post);
     });
+}
+
+exports.putPost = function(req, res, next) {
+  var user_id = req.params.user_id;
+  var post_id = req.params.post_id;
+  var body = req.body.body;
+  
+  Post.findByIdAndUpdate(post_id, {body: body})
+    .where('_creator').equals(user_id)
+    .exec(function(err, post) {
+      if (err) return next(err);
+      if (!post) return next();
+      
+      res.status(200).send("Пост обновлено");
+    });
+}
+
+exports.deletePost = function(req, res, next) {
+  var user_id = req.params.user_id;
+  var post_id = req.params.post_id;
+
+  Post.findOneAndRemove({ _id: post_id, _creator: user_id }, function(err) {
+    if (err) return next(err);
+    
+    res.status(200).send("Пост видалено");
+  });
 }
 

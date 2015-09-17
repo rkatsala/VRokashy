@@ -66,7 +66,7 @@ userSchema.statics.signUp = function(userData, callback) {
   var User = this;
   
   User.findOne({email: userData.email}, function(err, user){
-    if (err) return next(err);
+    if (err) return callback(err);
     if (user) {
       callback(new HttpError(403, "Користувач з таким email вже зареєстрований"));
     } else {
@@ -79,7 +79,7 @@ userSchema.statics.login = function(email, password, callback) {
   var User = this;
   
   User.findOne({email: email}, function(err, user) {
-    if (err) return next(err);
+    if (err) return callback(err);
     if (user) {
       if (user.checkPassword(password)) {
         callback(null, user);

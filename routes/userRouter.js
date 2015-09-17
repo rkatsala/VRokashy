@@ -11,6 +11,9 @@ userRouter.route('/:user_id/posts')
   .get(userHandlers.getAllPosts)
   .post(userHandlers.postPost);
 
-userRouter.get('/:user_id/posts/:post_id', userHandlers.getPost);
+userRouter.route('/:user_id/posts/:post_id')
+  .get(userHandlers.getPost)
+  .put(userHandlers.putPost)
+  .delete(userHandlers.deletePost);
 
 module.exports = userRouter;

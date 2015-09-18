@@ -114,7 +114,8 @@ exports.getPost = function(req, res, next) {
     .select('body date')
     .exec(function(err, post) {
       if (err) return next(err);
-      if (!post) return next();
+      if (!post) return next(new HttpError("Пост не знайдено"));
+      
       res.status(200).send(post);
     });
 }
@@ -128,7 +129,7 @@ exports.putPost = function(req, res, next) {
     .where('_creator').equals(user_id)
     .exec(function(err, post) {
       if (err) return next(err);
-      if (!post) return next();
+      if (!post) return next(new HttpError("Пост не знайдено"));
       
       res.status(200).send("Пост оновлено");
     });
@@ -138,8 +139,9 @@ exports.deletePost = function(req, res, next) {
   var user_id = req.params.user_id;
   var post_id = req.params.post_id;
 
-  Post.findOneAndRemove({ _id: post_id, _creator: user_id }, function(err) {
+  Post.findOneAndRemove({ _id: post_id, _creator: user_id }, function(err, post) {
     if (err) return next(err);
+    if (!post) return next(new HttpError("Пост не знайдено"));
     
     res.status(200).send("Пост видалено");
   });

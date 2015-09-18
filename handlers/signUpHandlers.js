@@ -5,17 +5,7 @@ exports.get = function (req, res, next) {
 };
 
 exports.post = function(req, res, next) {
-/*   var body = req.body;
-  var userData = {
-    name: {
-      first: body.firstName,
-      last: body.lastName
-    },
-    email: body.email,
-    password: body.password
-  };
- */ 
-  var userData = req.body.userData;
+  var userData = req.body;
   
   User.signUp(userData, function(err, user) {
     if (err) return next(err);

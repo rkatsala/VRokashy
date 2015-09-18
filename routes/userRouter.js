@@ -5,7 +5,9 @@ var userHandlers = require('../handlers/userHandlers');
 userRouter.get('/', userHandlers.getAllUsers);
 
 userRouter.route('/:user_id')
-  .get(userHandlers.getUser);
+  .get(userHandlers.getUser)
+  .put(userHandlers.putUser)
+  .delete(userHandlers.deleteUser);
 
 userRouter.route('/:user_id/posts')
   .get(userHandlers.getAllPosts)

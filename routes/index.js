@@ -20,6 +20,8 @@ router.use('/signUp', require('./signUpRouter'));
 
 router.use('/login', require('./loginRouter'));
 
+router.use('/logout', require('./logoutRouter'));
+
 // user routes
 router.use('/users', require('./userRouter'));
 

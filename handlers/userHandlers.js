@@ -13,7 +13,9 @@ exports.getAllUsers = function(req, res, next) {
 };
 
 exports.getUser = function(req, res, next) {
-  User.findById(req.params.user_id)
+  var user_id = req.params.user_id;
+  
+  User.findById(user_id)
     .select('name email posts')
     .exec(function(err, user) {
       if (err) return next(err);
@@ -22,8 +24,47 @@ exports.getUser = function(req, res, next) {
     });
 }
 
+exports.putUser = function(req, res, next) {
+  var user_id = req.params.user_id;
+  var body = req.body;
+  
+  if (body.hashedPassword || body.salt) return next(new HttpError(403, "Недопустима операція"));
+  
+  User.findByIdAndUpdate(user_id, body, function(err, user) {
+    if (err) return next(err);
+    if (!user) return next(new HttpError(404, "Користувач з таким id не зареєстрований"));
+    
+    res.status(200).send("Дані користувача " + user.name.full + " успішно оновлені");
+  })
+}
+
+exports. deleteUser = function(req, res, next) {
+  var user_id = req.params.user_id;
+  
+  async.waterfall([
+    function(callback) {
+      User.findByIdAndRemove(user_id, callback);
+    },
+    function(user, callback) {
+      if (!user) return callback(new HttpError(404, "Користувач з таким id не зареєстрований"));
+      
+      callback(null, user);
+    },
+    function(user, callback) {
+      Post.remove({_creator: user}, callback);
+    }
+  ], function(err) {
+    if (err) return next(err);
+    
+    res.status(200).send("Користувача видалено");
+  })
+}
+
 exports.getAllPosts = function(req, res, next) {
-  User.findById(req.params.user_id)
+  var user_id = req.params.user_id;
+  
+  User
+    .findById(user_id)
     .populate('posts', 'body date')
     .exec(function(err, user) {
       if (err) return next(err);
@@ -89,7 +130,7 @@ exports.putPost = function(req, res, next) {
       if (err) return next(err);
       if (!post) return next();
       
-      res.status(200).send("Пост обновлено");
+      res.status(200).send("Пост оновлено");
     });
 }
 

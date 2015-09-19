@@ -27,18 +27,20 @@ exports.getUser = function(req, res, next) {
 exports.putUser = function(req, res, next) {
   var user_id = req.params.user_id;
   var body = req.body;
-  
-  if (body.hashedPassword || body.salt) return next(new HttpError(403, "Недопустима операція"));
+ 
+  if (body.hashedPassword || body.salt || body.admin) {
+    return next(new HttpError(403, "Недопустима операція"));
+  };
   
   User.findByIdAndUpdate(user_id, body, function(err, user) {
     if (err) return next(err);
     if (!user) return next(new HttpError(404, "Користувач з таким id не зареєстрований"));
     
     res.status(200).send("Дані користувача " + user.name.full + " успішно оновлені");
-  })
+  });
 }
 
-exports. deleteUser = function(req, res, next) {
+exports.deleteUser = function(req, res, next) {
   var user_id = req.params.user_id;
   
   async.waterfall([
@@ -57,7 +59,7 @@ exports. deleteUser = function(req, res, next) {
     if (err) return next(err);
     
     res.status(200).send("Користувача видалено");
-  })
+  });
 }
 
 exports.getAllPosts = function(req, res, next) {
@@ -76,7 +78,7 @@ exports.getAllPosts = function(req, res, next) {
 exports.postPost = function(req, res, next) {
   var body = req.body.body;
   var creator = req.params.user_id;
-  
+ 
   async.waterfall([
     // Verify user existence
     function(callback) {

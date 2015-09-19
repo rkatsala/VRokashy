@@ -82,11 +82,6 @@ app.use(function(err, req, res, next) {
 });
 
 
-// tests
-
-// require('./testModels');
-// console.log("====== User.db ======")
-// console.log(User.db);
 
 if (module.parent) {
   module.exports = app;

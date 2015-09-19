@@ -35,7 +35,8 @@ var userSchema = new Schema({
     posts: [{
         type: Schema.Types.ObjectId,
         ref: 'Post'
-      }]
+    }],
+    admin: Boolean
   });
 
 userSchema.virtual('name.full')

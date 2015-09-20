@@ -28,17 +28,29 @@ conn.once('open', function() {
         name: {full: "Ваня Доу"},
         email: "john@doe.com",
         password: "qqq111"
+      },
+      {
+        name: {full: "Анця Кушницька"},
+        email: "hanna@vrokashy.org",
+        password: "111"
+      },
+      {
+        name: {full: "Віктор Петрович"},
+        email: "admin@vrokashy.org",
+        password: "SuperComplicatePassword",
+        admin: true
       }
     ];
     
     async.each(users, function(userData, callback) {
       var user = new User(userData);
       
-      var posts = [
-        { body: "1-й пост", _creator: user._id },
-        { body: "2-й пост", _creator: user._id },
-        { body: "3-й пост", _creator: user._id },
-      ];
+      var posts = [];
+      
+      for (var i = 1; i < 6; i++) {
+        var body = i + "-й пост користувача " + user.name.full;
+        posts.push({ body: body, _creator: user._id });
+      };
       
       async.each(posts, function(postData, callback) {
         var post = new Post(postData);

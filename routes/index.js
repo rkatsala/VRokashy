@@ -7,8 +7,13 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'ВРокаши' });
 });
 
+// test routes
 router.get('/ip', function(req, res, next){
   res.status(200).send(req.ip);
+});
+
+router.all('/method', function(req, res, next){
+  res.status(200).send(req.method);
 });
 
 router.get('/views', function(req, res, next) {

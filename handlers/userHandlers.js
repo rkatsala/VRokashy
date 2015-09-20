@@ -12,6 +12,24 @@ exports.getAllUsers = function(req, res, next) {
     });
 };
 
+exports.checkUser = function(req, res, next) {
+  if (req.session.admin) return next();
+  
+  if (req.method === 'POST' || req.method === 'PUT' || req.method === 'DELETE') {
+    if (req.session.user) {
+      if (req.session.user === req.params.user_id) {
+        return next();
+      } else {
+        return next(new HttpError(403, "Нема прав доступу"))
+      }
+    } else {
+      return next(new HttpError(401, "Ви не авторизовані"));
+    }
+  } else {
+    next();
+  }
+}
+
 exports.getUser = function(req, res, next) {
   var user_id = req.params.user_id;
   
@@ -57,7 +75,8 @@ exports.deleteUser = function(req, res, next) {
     }
   ], function(err) {
     if (err) return next(err);
-    
+    if (req.session.user === user_id) req.session.destroy();
+      
     res.status(200).send("Користувача видалено");
   });
 }
@@ -116,7 +135,7 @@ exports.getPost = function(req, res, next) {
     .select('body date')
     .exec(function(err, post) {
       if (err) return next(err);
-      if (!post) return next(new HttpError("Пост не знайдено"));
+      if (!post) return next(new HttpError(404, "Пост не знайдено"));
       
       res.status(200).send(post);
     });
@@ -131,7 +150,7 @@ exports.putPost = function(req, res, next) {
     .where('_creator').equals(user_id)
     .exec(function(err, post) {
       if (err) return next(err);
-      if (!post) return next(new HttpError("Пост не знайдено"));
+      if (!post) return next(new HttpError(404, "Пост не знайдено"));
       
       res.status(200).send("Пост оновлено");
     });
@@ -143,7 +162,7 @@ exports.deletePost = function(req, res, next) {
 
   Post.findOneAndRemove({ _id: post_id, _creator: user_id }, function(err, post) {
     if (err) return next(err);
-    if (!post) return next(new HttpError("Пост не знайдено"));
+    if (!post) return next(new HttpError(404, "Пост не знайдено"));
     
     res.status(200).send("Пост видалено");
   });

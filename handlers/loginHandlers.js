@@ -10,9 +10,10 @@ exports.post = function (req, res, next) {
 
 	User.login(email, password, function (err, user) {
 		if (err) return next(err);
+    
+    if (user.admin) req.session.admin = user.admin;
 
 		req.session.user = user._id;
 		res.send("Користувач " + user.name.full + " зайшов в мережу");
-    // res.send(req.session);
 	})
 };

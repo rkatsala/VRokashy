@@ -15,18 +15,14 @@ exports.getAllUsers = function(req, res, next) {
 exports.checkUser = function(req, res, next) {
   if (req.session.admin) return next();
   
-  if (req.method === 'POST' || req.method === 'PUT' || req.method === 'DELETE') {
-    if (req.session.user) {
-      if (req.session.user === req.params.user_id) {
-        return next();
-      } else {
-        return next(new HttpError(403, "Нема прав доступу"))
-      }
+  if (req.session.user) {
+    if (req.session.user === req.params.user_id) {
+      return next();
     } else {
-      return next(new HttpError(401, "Ви не авторизовані"));
+      return next(new HttpError(403, "Нема прав доступу"))
     }
   } else {
-    next();
+    return next(new HttpError(401, "Ви не авторизовані"));
   }
 }
 

@@ -5,23 +5,21 @@ var HttpError = require('../handlers/errorHandlers').HttpError;
 
 userRouter.get('/', userHandlers.getAllUsers);
 
-userRouter.use('/:user_id', userHandlers.checkUser);
-
 userRouter
   .route('/:user_id')
   .get(userHandlers.getUser)
-  .put(userHandlers.putUser)
-  .delete(userHandlers.deleteUser);
+  .put(userHandlers.checkUser, userHandlers.putUser)
+  .delete(userHandlers.checkUser, userHandlers.deleteUser);
 
 userRouter
   .route('/:user_id/posts')
   .get(userHandlers.getAllPosts)
-  .post(userHandlers.postPost);
+  .post(userHandlers.checkUser, userHandlers.postPost);
 
 userRouter
   .route('/:user_id/posts/:post_id')
   .get(userHandlers.getPost)
-  .put(userHandlers.putPost)
-  .delete(userHandlers.deletePost);
+  .put(userHandlers.checkUser, userHandlers.putPost)
+  .delete(userHandlers.checkUser, userHandlers.deletePost);
 
 module.exports = userRouter;

@@ -41,6 +41,16 @@ exports.getUser = function(req, res, next) {
 exports.putUser = function(req, res, next) {
   var user_id = req.params.user_id;
   var body = req.body;
+  
+  if (!Object.keys(body).toString()) {
+    return next(new HttpError(400, "Нема даних для оновлення"));
+  }
+  
+  if (body.name) {
+    if ( !(body.name.first && body.name.last) ) {
+      return next(new HttpError(400, "Дані імені не коректні"));
+    }
+  }
  
   if (body.hashedPassword || body.salt || body.admin) {
     return next(new HttpError(403, "Недопустима операція"));

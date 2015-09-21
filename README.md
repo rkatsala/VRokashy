@@ -1,6 +1,7 @@
 # VRokashy
 
 Simple Transcarpathian social network.
+(Second stage of homework)
 
 For use, run mongodb server on your local host.
 

@@ -7,32 +7,25 @@ define([
 	var Router = Backbone.Router.extend({
 		routes: {
 			"users": "users",
+			"posts": "posts"
 			"*any": "any"
-		}
-	});
+		},
 
-	var init = function() {
-
-		var router = new Router();
-
-		console.log("Router init")
-
-		router.on('route:users', function() {
+		users: function() {
 			var usersView = new UsersView();
 			usersView.render();
 
 			console.log("users route");
-		});
+		},
 
-		router.on('route:any', function() {
+		posts: function() {
+			alert('Posts');
+		},
+
+		any: function() {
 			alert('404');
-		});
+		}
+	});
 
-		Backbone.history.start({pushState: true});
-	};
-
-
-	return {
-		init: init
-	};
+	return Router;
 });

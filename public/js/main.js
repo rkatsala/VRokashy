@@ -1,17 +1,22 @@
-requirejs.config({
-	baseUrl: 'js/libs',
+require.config({
 	paths: {
-		jquery: 'jquery/dist/jquery',
-		underscore: 'underscore/underscore',
-		backbone: 'backbone/backbone',
-		text: 'text/text',
+		jquery: 'libs/jquery/dist/jquery',
+		underscore: 'libs/underscore/underscore',
+		backbone: 'libs/backbone/backbone',
+		text: 'libs/text/text',
 		templates: '../templates'
-	}/*,
+	},
 	shim: {
-		backbone: ['underscore', 'jquery']
-	}*/
+		'underscore': {
+			exports: '_'
+		},
+		'backbone': {
+			deps: ['underscore', 'jquery'],
+			exports: 'Backbone'
+		}
+	}
 });
 
-requirejs(['app'], function (App) {
+require(['app'], function (App) {
 	App.init();
 });

@@ -5,7 +5,8 @@ define([
 	'router'
 ], function($, _, Backbone, Router) {
 	function init() {
-		Router.init();
+		var router = new Router();
+		Backbone.history.start({pushState: true});
 	};
 
 	return {

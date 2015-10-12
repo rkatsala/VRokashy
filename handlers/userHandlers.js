@@ -5,7 +5,7 @@ var HttpError = require('./errorHandlers').HttpError;
 
 exports.getAllUsers = function(req, res, next) {
   User.find()
-    .select('name email posts')
+    .select('name email posts created')
     .lean()
     .exec(function(err, users) {
       if (err) return next(err);

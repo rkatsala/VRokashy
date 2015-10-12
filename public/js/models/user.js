@@ -1,9 +1,10 @@
-define([], function() {
+define([
+	'underscore',
+	'backbone'
+], function(_, Backbone) {
 	var Model = Backbone.Model.extend({
 		idAttribute: '_id',
-		urlRoot: function() {
-			return '/users';
-		}
+		urlRoot: '/users'
 	});
 
 	return Model;

@@ -4,8 +4,8 @@ var User = require('../models/userMongo').User;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // res.render('index', { title: 'ВРокаши' });
-  res.sendFile('index.html') //, {root: './'})
+  res.render('index', { title: 'ВРокаши' });
+  // res.sendFile('index.html') //, {root: './'})
 });
 
 // test routes

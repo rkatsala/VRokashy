@@ -1,4 +1,4 @@
-require.config({
+requirejs.config({
 	paths: {
 		jquery: 'libs/jquery/dist/jquery',
 		underscore: 'libs/underscore/underscore',
@@ -17,6 +17,13 @@ require.config({
 	}
 });
 
-require(['app'], function (App) {
+requirejs(['app'], function (App) {
+	console.log("requirejs config run");
+	alarm("requirejs config run");	
 	App.init();
 });
+
+/*require(function(){
+	console.log("requirejs config run");
+	alarm("requirejs config run");
+});*/

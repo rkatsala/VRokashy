@@ -6,7 +6,7 @@ define([
 		console.log('Load app.js');
 
 		var router = new Router();
-		Backbone.history.start({pushState: true});
+		Backbone.history.start(/*{pushState: true}*/);
 	};
 
 	return {

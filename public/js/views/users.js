@@ -6,17 +6,18 @@ define([
 ], function(_, Backbone, UsersCollection, usersTemplate) {
 	var UsersListView = Backbone.View.extend({
 		el: '#content',
-		
+
 		template: _.template(usersTemplate),
 
 		render: function() {
 			var that = this;
 			var users = new UsersCollection();
 			users.fetch({
-				success: function(users) {
+				success: function(users, response, options) {
+					$("title").html("ВРокаши - користувачі");
 					that.$el.html( that.template({ users: users.toJSON() }) );
 				},
-				error: function(response) {
+				error: function(users, response, options) {
 					console.error(response, "UsersListView error!")
 				}
 			});

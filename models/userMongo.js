@@ -55,6 +55,8 @@ userSchema.virtual('password')
     this.hashedPassword = this.encryptPassword(password);
   });
 
+// userSchema.set('toObject', { getters: true});
+
 userSchema.methods.encryptPassword = function (password) {
   return crypto.createHmac('sha1', this.salt).update(password).digest('hex');
 };

@@ -9,7 +9,7 @@
 	<body>
 		<% users.forEach( function(user) { %>
 			<tr>
-				<td><%= user.name.first + ' ' + user.name.last %></td>
+				<td><%= user.name.full %></td>
 				<td><%= user.email %></td>
 				<td><%= user.created %></td>
 			</tr>

@@ -1,20 +1,26 @@
 define([
-	'jquery',
 	'underscore',
-	'backbone',
-	'collection/users',
+	'backbone',	
+	'collections/users',
 	'text!templates/users.html'
-], function($, _, Backbone, UsersCollection, usersTemplate) {
-	var View = Backbone.View.extend({
+], function(_, Backbone, UsersCollection, usersTemplate) {
+	var UsersListView = Backbone.View.extend({
 		el: '#content',
+		
+		template: _.template(usersTemplate),
+
 		render: function() {
 			var that = this;
 			var users = new UsersCollection();
 			users.fetch({
 				success: function(users) {
-					that.$el.html(_.template(usersTemplate, {users: users.models}))
+					that.$el.html( that.template({ users: users.toJSON() }) );
+				},
+				error: function(response) {
+					console.error(response, "UsersListView error!")
 				}
 			});
+			return this;
 		}
 		/*template: _.template(userTemplate),
 
@@ -32,5 +38,5 @@ define([
 		}*/
 	});
 
-	return View;
+	return UsersListView;
 });

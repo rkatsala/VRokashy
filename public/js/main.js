@@ -18,12 +18,6 @@ requirejs.config({
 });
 
 requirejs(['app'], function (App) {
-	console.log("requirejs config run");
-	alarm("requirejs config run");	
+	console.log("RequireJS config run");
 	App.init();
 });
-
-/*require(function(){
-	console.log("requirejs config run");
-	alarm("requirejs config run");
-});*/

@@ -1,12 +1,10 @@
 define([
-	'jquery',
-	'underscore',
 	'backbone',
 	'router'
-], function($, _, Backbone, Router) {
-	function init() {
+], function(Backbone, Router) {
+	var init = function() {
 		console.log('Load app.js');
-		alert('Load app.js');
+
 		var router = new Router();
 		Backbone.history.start({pushState: true});
 	};

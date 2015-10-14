@@ -1,10 +1,11 @@
 define([
-	'underscore',
 	'backbone',
 	'models/user'
-], function(_, Backbone, Model) {
-	var Collection = Backbone.Collection.extend({
-		model: Model,
+], function(Backbone, UserModel) {
+	var UsersCollection = Backbone.Collection.extend({
+		model: UserModel,
 		url: '/users'
 	});
+
+	return UsersCollection;
 });

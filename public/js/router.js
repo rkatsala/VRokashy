@@ -1,13 +1,11 @@
 define([
-	'jquery',
-	'underscore',
-	'backbone',	
+	'backbone',
 	'views/users'
-], function($, _, Backbone, UsersView) {
+], function(Backbone, UsersView) {
 	var Router = Backbone.Router.extend({
 		routes: {
 			"users": "users",
-			"posts": "posts"
+			"posts": "posts",
 			"*any": "any"
 		},
 

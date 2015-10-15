@@ -1,11 +1,13 @@
 define([
 	'backbone',
-	'views/users'
-], function(Backbone, UsersView) {
+	'views/users',
+	'views/user'
+], function(Backbone, UsersListView, UserView) {
 	var Router = Backbone.Router.extend({
 		routes: {
 			"": "main",
 			"users": "users",
+			"users/:uid": "user",
 			"posts": "posts",
 			"*any": "any"
 		},
@@ -15,10 +17,17 @@ define([
 		},
 
 		users: function() {
-			var usersView = new UsersView();
-			usersView.render();
+			var usersListView = new UsersListView();
+			usersListView.render();
 
-			console.log("users route");
+			console.log("usersList route");
+		},
+
+		user: function(uid) {
+			var userView = new UserView();
+			userView.render(uid);
+
+			console.log("user route", uid);
 		},
 
 		posts: function() {

@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "start": "supervisor ./bin/www"
+    "start": "supervisor -i public ./bin/www"
   },
   "dependencies": {
     "async": "^1.4.2",

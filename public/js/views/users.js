@@ -10,12 +10,12 @@ define([
 		template: _.template(usersTemplate),
 
 		render: function() {
-			var that = this;
+			var self = this;
 			var users = new UsersCollection();
 			users.fetch({
 				success: function(users, response, options) {
-					$("title").html("ВРокаши - користувачі");
-					that.$el.html( that.template({ users: users.toJSON() }) );
+					this.$("title").html("ВРокаши - користувачі");
+					self.$el.html( self.template({ users: users.toJSON() }) );
 				},
 				error: function(users, response, options) {
 					console.error(response, "UsersListView error!")

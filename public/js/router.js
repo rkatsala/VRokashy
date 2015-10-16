@@ -25,7 +25,7 @@ define([
 
 		user: function(uid) {
 			var userView = new UserView();
-			userView.render(uid);
+			userView.render();
 
 			console.log("user route", uid);
 		},

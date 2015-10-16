@@ -1,13 +1,36 @@
 define([
 	'underscore',
-	'backbone',	
+	'backbone',
+	'views/user',	
 	'collections/users',
-	'text!templates/users.html'
-], function(_, Backbone, UsersCollection, usersTemplate) {
+	'text!templates/users.html',
+	'models/user'
+], function(_, Backbone, UserView, UsersCollection, usersTemplate, UserModel) {
 	var UsersListView = Backbone.View.extend({
 		el: '#content',
 
 		template: _.template(usersTemplate),
+
+		events: {
+			'click .user-item': 'showUser'
+		},
+
+		showUser: function(e) {
+			var targetEl = this.$(e.target);
+			var userItem = targetEl.closest('.user-item');
+			var id = userItem.attr('id');
+			var user = new UserModel({_id: id});
+			
+			user.fetch({
+				success: function(user) {
+					var userView = new UserView({model: user});
+					userView.render();
+				},
+				error: function(user, response) {
+					console.error(response)
+				}
+			});
+		},
 
 		render: function() {
 			var self = this;
@@ -18,7 +41,7 @@ define([
 					self.$el.html( self.template({ users: users.toJSON() }) );
 				},
 				error: function(users, response, options) {
-					console.error(response, "UsersListView error!")
+					console.error("UsersListView error:", response)
 				}
 			});
 			return this;

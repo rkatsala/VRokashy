@@ -1,18 +1,18 @@
 <table>
-	<thead>
+	<tdead>
 		<tr>
 			<th>Name</th>
 			<th>Email</th>
 			<th>Created</th>
 		</tr>
-	</thead>
-	<body>
+	</tdead>
+	<tbody>
 		<% users.forEach( function(user) { %>
-			<tr>
+			<tr id="<%= user._id %>" class="user-item">
 				<td><%= user.name.full %></td>
 				<td><%= user.email %></td>
 				<td><%= user.created %></td>
 			</tr>
 		<% }); %>
-	</body>
+	</tbody>
 </table>

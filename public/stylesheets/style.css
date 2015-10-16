@@ -6,3 +6,8 @@ body {
 a {
   color: #00B7FF;
 }
+
+.user-item:hover {
+	color: #ffe;
+    background-color: #5488af;
+}

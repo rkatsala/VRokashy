@@ -9,18 +9,21 @@ define([
 
 		template: _.template(userTemlate),
 
-		render: function(uid) {
+		render: function() {
 			var self = this;
-			var user = new UserModel({id: uid});
+			this.$el.html( self.template({ user: self.model.toJSON() }) );
+			Backbone.history.navigate(self.model.url());
+			/*var self = this;
+			var user = this.model;
 			user.fetch({
 				success: function(user) {
-					this.$("title").html(user.name.full + " - ВРокаши");
+					// this.$("title").html(user.name.full + " - ВРокаши");
 					self.$el.html( self.template({ user: user.toJSON() }) );
 				},
 				error: function(user, response) {
-					console.error("UserView error!", response);
+					console.error("UserView error:", response);
 				}
-			});
+			});*/
 
 			return this;
 		}

@@ -10,20 +10,20 @@ define([
 		template: _.template(userTemlate),
 
 		render: function() {
-			var self = this;
-			this.$el.html( self.template({ user: self.model.toJSON() }) );
-			Backbone.history.navigate(self.model.url());
 			/*var self = this;
-			var user = this.model;
+			this.$el.html( self.template({ user: self.model.toJSON() }) );*/
+			var self = this;
+			var user = new UserModel({_id: self.id});
 			user.fetch({
 				success: function(user) {
 					// this.$("title").html(user.name.full + " - ВРокаши");
 					self.$el.html( self.template({ user: user.toJSON() }) );
+					Backbone.history.navigate(user.url());
 				},
 				error: function(user, response) {
-					console.error("UserView error:", response);
+					console.error("User fetch error:", response);
 				}
-			});*/
+			});
 
 			return this;
 		}

@@ -1,14 +1,8 @@
-<table>
-	<thead>
-		<tr>
-			<th>Name</th>
-			<th>Email</th>
-		</tr>
-	</thead>
-	<body>
-			<tr>
-				<td><%= user.name.full %></td>
-				<td><%= user.email %></td>
-			</tr>
-	</body>
-</table>
+<h1><%= user.name.full %></h1>
+<p><%= user.email %></p>
+<dl>
+	<% user.posts.forEach(function(post) {%>
+		<dd><%= post.date %></dd>
+		<dt><%= post.body %></dt>
+	<% });%>
+</dl>

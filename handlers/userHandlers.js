@@ -5,7 +5,7 @@ var HttpError = require('./errorHandlers').HttpError;
 
 exports.getAllUsers = function(req, res, next) {
   User.find()
-    .select('name email posts created')
+    .select('-hashedPassword -salt -__v')
     .lean()
     .exec(function(err, users) {
       if (err) return next(err);
@@ -31,7 +31,9 @@ exports.getUser = function(req, res, next) {
   var user_id = req.params.user_id;
   
   User.findById(user_id)
-    .select('name email posts')
+    .select('-hashedPassword -salt -__v')
+    .populate('posts', 'body date')
+    .lean()
     .exec(function(err, user) {
       if (err) return next(err);
       if (!user) return next();
@@ -94,6 +96,7 @@ exports.getAllPosts = function(req, res, next) {
   User
     .findById(user_id)
     .populate('posts', 'body date')
+    .lean()
     .exec(function(err, user) {
       if (err) return next(err);
       if (!user) return next();
@@ -140,6 +143,7 @@ exports.getPost = function(req, res, next) {
   Post.findById(post_id)
     .where('_creator').equals(user_id)
     .select('body date')
+    .lean()
     .exec(function(err, post) {
       if (err) return next(err);
       if (!post) return next(new HttpError(404, "Пост не знайдено"));

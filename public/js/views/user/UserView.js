@@ -1,13 +1,13 @@
 define([
 	'underscore',
 	'backbone',
-	'models/user',
-	'text!templates/user.html'
-], function(_, Backbone, UserModel, userTemlate) {
+	'models/UserModel',
+	'text!templates/user/userTemplate.html'
+], function(_, Backbone, UserModel, userTemplate) {
 	var UserView = Backbone.View.extend({
 		el: '#content',
 
-		template: _.template(userTemlate),
+		template: _.template(userTemplate),
 
 		render: function() {
 			/*var self = this;

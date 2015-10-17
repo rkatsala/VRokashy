@@ -1,8 +1,9 @@
 define([
 	'backbone',
-	'views/usersList',
-	'views/user'
-], function(Backbone, UsersListView, UserView) {
+	'views/MainView',
+	'views/user/UsersListView',
+	'views/user/UserView'
+], function(Backbone, MainView, UsersListView, UserView) {
 	var Router = Backbone.Router.extend({
 		routes: {
 			"": "main",
@@ -13,7 +14,8 @@ define([
 		},
 
 		main: function() {
-			alert('Main page');
+			var mainView = new MainView();
+			mainView.render();
 		},
 
 		usersList: function() {

@@ -1,9 +1,9 @@
 define([
 	'underscore',
 	'backbone',
-	'views/user',	
-	'collections/users',
-	'text!templates/usersList.html'
+	'views/user/UserView',	
+	'collections/UsersCollection',
+	'text!templates/user/usersListTemplate.html'
 ], function(_, Backbone, UserView, UsersCollection, usersListTemplate) {
 	var UsersListView = Backbone.View.extend({
 		el: '#content',

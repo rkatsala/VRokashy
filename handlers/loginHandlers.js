@@ -11,9 +11,11 @@ exports.post = function (req, res, next) {
 	User.login(email, password, function (err, user) {
 		if (err) return next(err);
     
-    if (user.admin) req.session.admin = user.admin;
+    	if (user.admin) req.session.admin = user.admin;
 
 		req.session.user = user._id;
-		res.send("Користувач " + user.name.full + " зайшов в мережу");
-	})
+		// res.send("Користувач " + user.name.full + " зайшов в мережу");
+		console.log("Користувач " + user.name.full + " зайшов в мережу");
+		res.status(200).send(user);
+	});
 };

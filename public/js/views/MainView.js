@@ -1,9 +1,10 @@
 define([
 	'backbone',
-	'models/UserModel',
 	'models/LoginModel',
+	'models/UserModel',
+	'views/user/UserView',
 	'text!templates/mainTemplate.html'
-], function(Backbone, UserModel, LoginModel, mainTemplate) {
+], function(Backbone, LoginModel, UserModel, UserView, mainTemplate) {
 	var MainView = Backbone.View.extend({
 		el: '#content',
 
@@ -14,23 +15,45 @@ define([
 			'click #signUpBtn': 'signUp'
 		},
 
-		// not work
 		login: function(e) {
 			var self = this;
 			var data = {
 				email: self.$el.find('.login .email').val(),
 				password: self.$el.find('.login .password').val()
-			}
+			};
 			var login = new LoginModel(data);
-			login.save({}, {
-				success: function(login, response) {
-					alert("ok");
-					// alert(login.email + " " + login.password + "/n " + response);
-					// var user = new UserModel(response);
-					// Backbone.history.navigate(user.url(), {trigger: true});
+			login.save({isNew: true}, {
+				success: function(login, response, options) {
+					// var userView = new UserView({id: response._id});
+					// userView.render();
+					Backbone.history.navigate('users/' + response._id, {trigger: true});
 				},
-				error: function(login, xhr) {
-					console.error("Login error:", xhr);
+				error: function(login, xhr, options) {
+					console.error("Login error", xhr);
+					alert("Помилка входу!");
+				}
+			});
+		},
+
+		signUp: function(e) {
+			var self = this;
+			var $thisEl = this.$el;
+			var data = {
+				name: {
+					first: $thisEl.find('.signUp .name-first').val(),
+					last: $thisEl.find('.signUp .name-last').val()
+				},
+				email: $thisEl.find('.signUp .email').val(),
+				password: $thisEl.find('.signUp .password').val()
+			};
+			var userModel = new UserModel(data);
+			userModel.save({}, {
+				success: function(userModel, response, options) {
+					// Backbone.history.navigate(userModel.url());
+				},
+				error: function(userModel, xhr, options) {
+					console.error("SignUp error", xhr);
+					alert("Помилка реєстрації");
 				}
 			});
 		},

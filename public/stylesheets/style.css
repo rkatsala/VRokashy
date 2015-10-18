@@ -1,5 +1,5 @@
 body {
-  padding: 20px 50px;
+  padding: 20px 80px;
   /*font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;*/
 }
 
@@ -13,8 +13,36 @@ th, td {
 
 .user-item:hover {
 	color: #ffe;
-    /*background-color: #5488af;*/
-    background-color: grey;
+    background-color: #5488af;
+    /*background-color: grey;*/
+}
+
+.navbar {
+	background-color: #dff0d8;
+}
+
+.left-column {
+    float: left;
+    width: 80%;
+    min-height: 100px;
+    border-radius: 5px;
+    padding: 0px 12px; 
+    /*background-color: #fcf8e3;*/
+}
+
+.right-column {
+    float: right;
+    width: 18%;
+    min-height: 100px;
+    background-color: #d9edf7;
+    border-radius: 5px;
+    padding: 25px;
+}
+
+.footer {
+    clear: both;
+    border-radius: 5px;
+    background-color: #dff0d8;
 }
 
 /*dd, dt {

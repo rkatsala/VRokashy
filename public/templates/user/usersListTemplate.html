@@ -11,7 +11,7 @@
 			<tr id="<%= user._id %>" class="user-item">
 				<td><%= user.name.full %></td>
 				<td><%= user.email %></td>
-				<td><%= user.created %></td>
+				<td><%= new Date(Date.parse(user.created)).toLocaleString("ua") %></td>
 			</tr>
 		<% }); %>
 	</tbody>

@@ -2,7 +2,7 @@
 <p><%= user.email %></p>
 <dl>
 	<% user.posts.forEach(function(post) {%>
-		<dd><%= post.date %></dd>
+		<dd><%= new Date(Date.parse(post.date)).toLocaleString("ua") %></dd>
 		<dt><%= post.body %></dt>
 	<% });%>
 </dl>

@@ -1,9 +1,10 @@
 define([
 	'backbone',
+	'views/NavbarView',
 	'views/MainView',
 	'views/user/UsersListView',
 	'views/user/UserView'
-], function(Backbone, MainView, UsersListView, UserView) {
+], function(Backbone, NavbarView, MainView, UsersListView, UserView) {
 	var Router = Backbone.Router.extend({
 		routes: {
 			"": "main",
@@ -40,6 +41,9 @@ define([
 			alert('404');
 		}
 	});
+
+	var navbarView = new NavbarView();
+	navbarView.render();
 
 	return Router;
 });

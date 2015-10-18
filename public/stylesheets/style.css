@@ -7,7 +7,22 @@ a {
   color: #00B7FF;
 }
 
+th, td {
+	padding: 1px 12px;
+}
+
 .user-item:hover {
 	color: #ffe;
-    background-color: #5488af;
+    /*background-color: #5488af;*/
+    background-color: grey;
 }
+
+/*dd, dt {
+	padding: 3px 12px;
+}
+
+.post-date {
+	color: #ffe;
+	background-color: grey;
+	text-align: right;
+}*/

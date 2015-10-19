@@ -63,7 +63,8 @@ exports.putUser = function(req, res, next) {
     if (err) return next(err);
     if (!user) return next(new HttpError(404, "Користувач з таким id не зареєстрований"));
     
-    res.status(200).send("Дані користувача " + user.name.full + " успішно оновлені");
+    console.log("Дані користувача " + user.name.full + " успішно оновлені");
+    res.status(200).send(user);
   });
 }
 
@@ -85,8 +86,9 @@ exports.deleteUser = function(req, res, next) {
   ], function(err) {
     if (err) return next(err);
     if (req.session.user === user_id) req.session.destroy();
-      
-    res.status(200).send("Користувача видалено");
+    
+    console.log("Користувача видалено");
+    res.status(200).send({});
   });
 }
 
@@ -132,7 +134,7 @@ exports.postPost = function(req, res, next) {
   ], function(err, user) {
     if (err) return next(err);
     
-    res.send("Пост для користувача " + user.name.full + " додано");
+    res.send(user);
   });
 }
 
@@ -163,7 +165,8 @@ exports.putPost = function(req, res, next) {
       if (err) return next(err);
       if (!post) return next(new HttpError(404, "Пост не знайдено"));
       
-      res.status(200).send("Пост оновлено");
+      console.log("Пост оновлено");
+      res.status(200).send(post);
     });
 }
 
@@ -175,7 +178,8 @@ exports.deletePost = function(req, res, next) {
     if (err) return next(err);
     if (!post) return next(new HttpError(404, "Пост не знайдено"));
     
-    res.status(200).send("Пост видалено");
+    console.log("Пост видалено");
+    res.status(200).send(post);
   });
 }
 

@@ -17,8 +17,8 @@ define([
 		showUser: function(e) {
 			var targetEl = this.$(e.target);
 			var userItem = targetEl.closest('.user-item');
-			var id = userItem.attr('id');
-			var userView = new UserView({id: id});
+			var userId = userItem.attr('id');
+			var userView = new UserView({id: userId});
 			userView.render();
 		},
 
@@ -36,20 +36,6 @@ define([
 			});
 			return this;
 		}
-		/*template: _.template(userTemplate),
-
-		events: {},
-
-		initialize: function(options) {
-			this.render(options);
-		},
-
-		render: function(options) {
-			var collection = options.collection.toJSON();
-			this.$el.html( this.template({ users: collection }) );
-
-			return this;
-		}*/
 	});
 
 	return UsersListView;

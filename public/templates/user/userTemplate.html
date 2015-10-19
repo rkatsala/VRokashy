@@ -2,13 +2,13 @@
 <p><%= user.email %></p>
 <dl>
 	<% user.posts.forEach(function(post) {%>
-		<dd><%= new Date(Date.parse(post.date)).toLocaleString("ua") %></dd>
-		<dt><%= post.body %></dt>
+		<dd class="posts text-muted text-right"><%= new Date(Date.parse(post.date)).toLocaleString("ua") %></dd>
+		<dt class="posts bg-info mark"><%= post.body %></dt>
 	<% });%>
 </dl>
 
 <form>
-	<textarea id="new-post" rows="3" class="form-control">Текст нового поста</textarea>
+	<textarea id="add-post" rows="3" class="form-control">Текст нового поста</textarea>
 	<br>
-	<button type="button" id="new-post-btn">Зберегти</button>
+	<button type="button" id="add-post-btn">Зберегти</button>
 </form>

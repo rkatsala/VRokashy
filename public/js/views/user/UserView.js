@@ -9,9 +9,34 @@ define([
 
 		template: _.template(userTemplate),
 
+		events: {
+			'click #add-post-btn': 'addPost'
+		},
+
+		addPost: function(e) {
+			var self = this;
+			var data = self.$el.find('#add-post').val();
+			var url = '/users/' + self.id + '/posts';
+			var PostModel = Backbone.Model.extend({
+				idAttribute: '_id',
+				urlRoot: function() {
+					return url;
+				}
+			});
+			var post = new PostModel();
+
+			post.save({body: data}, {
+				success: function(post, response, options) {
+					self.render();
+				},
+				error: function(post, xhr, options) {
+					console.error("Add post error", xhr);
+					alert("Помилка додавання поста");
+				}
+			});
+		},
+
 		render: function() {
-			/*var self = this;
-			this.$el.html( self.template({ user: self.model.toJSON() }) );*/
 			var self = this;
 			var user = new UserModel({_id: self.id});
 			user.fetch({

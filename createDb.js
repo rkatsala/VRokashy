@@ -31,12 +31,12 @@ conn.once('open', function() {
       },
       {
         name: {full: "Анця Кушницька"},
-        email: "hanna@vrokashy.org",
+        email: "hanna@vrokashy.ua",
         password: "111"
       },
       {
         name: {full: "Віктор Петрович"},
-        email: "admin@vrokashy.org",
+        email: "admin@vrokashy.ua",
         password: "SuperComplicatePassword",
         admin: true
       }

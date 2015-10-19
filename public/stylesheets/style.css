@@ -12,9 +12,8 @@ th, td {
 }
 
 .user-item:hover {
-	color: #ffe;
+    color: #ffe;
     background-color: #5488af;
-    /*background-color: grey;*/
 }
 
 .navbar {
@@ -28,29 +27,35 @@ th, td {
     border-radius: 5px;
     padding: 0px 12px; 
     /*background-color: #fcf8e3;*/
+    margin-bottom: 25px;
 }
 
 .right-column {
     float: right;
     width: 18%;
-    min-height: 100px;
-    background-color: #d9edf7;
+    min-height: 300px;
+    background-color: #fcf8e3;
     border-radius: 5px;
-    padding: 25px;
+    padding: 125px 25px;
+    margin-bottom: 25px;
 }
 
 .footer {
+    text-align: center;
     clear: both;
     border-radius: 5px;
     background-color: #dff0d8;
 }
 
-/*dd, dt {
-	padding: 3px 12px;
+dd.posts, 
+dt.posts {
+    font-weight: normal;
+    border-radius: 5px;
+	padding: 5px 12px;
 }
 
-.post-date {
+/*.post-date {
 	color: #ffe;
 	background-color: grey;
 	text-align: right;
-}*/
+*/}

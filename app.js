@@ -7,7 +7,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
-var loadUser = require('./handlers/loadUser');
 
 var routes = require('./routes');
 
@@ -47,9 +46,6 @@ app.use(function(req, res, next) {
   req.session.views = req.session.views + 1 || 1;
   next();
 });
-
-// load user
-app.use(loadUser);
 
 // routes
 app.use('/', routes);

@@ -49,7 +49,7 @@ define([
 			var userModel = new UserModel(data);
 			userModel.save({}, {
 				success: function(userModel, response, options) {
-					// Backbone.history.navigate(userModel.url());
+					Backbone.history.navigate('users/' + response._id, {trigger: true});
 				},
 				error: function(userModel, xhr, options) {
 					console.error("SignUp error", xhr);

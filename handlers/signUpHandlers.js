@@ -13,6 +13,7 @@ exports.post = function(req, res, next) {
     if (err) return next(err);
     
     req.session.user = user._id;
-    res.send("Користувач " + user.name.full + " успішно зареєстрований");
+    console.log("Користувач " + user.name.full + " успішно зареєстрований");
+    res.status(200).send(user);
   })
 };

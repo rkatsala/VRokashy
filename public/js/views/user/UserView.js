@@ -15,12 +15,12 @@ define([
 			var self = this;
 			var user = new UserModel({_id: self.id});
 			user.fetch({
-				success: function(user) {
+				success: function(user, response, options) {
 					// this.$("title").html(user.name.full + " - ВРокаши");
 					self.$el.html( self.template({ user: user.toJSON() }) );
 					Backbone.history.navigate(user.url());
 				},
-				error: function(user, response) {
+				error: function(user, response, options) {
 					console.error("User fetch error:", response);
 				}
 			});

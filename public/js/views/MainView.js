@@ -24,9 +24,8 @@ define([
 			var login = new LoginModel(data);
 			login.save({isNew: true}, {
 				success: function(login, response, options) {
-					// var userView = new UserView({id: response._id});
-					// userView.render();
-					Backbone.history.navigate('users/' + response._id, {trigger: true});
+					var userView = new UserView({id: response._id});
+					userView.render();
 				},
 				error: function(login, xhr, options) {
 					console.error("Login error", xhr);
@@ -49,7 +48,8 @@ define([
 			var userModel = new UserModel(data);
 			userModel.save({}, {
 				success: function(userModel, response, options) {
-					Backbone.history.navigate('users/' + response._id, {trigger: true});
+					var userView = new UserView({id: response._id});
+					userView.render();
 				},
 				error: function(userModel, xhr, options) {
 					console.error("SignUp error", xhr);

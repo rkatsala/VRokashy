@@ -7,6 +7,7 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
+var authCookies = require('./middleware/authCookies');
 
 var routes = require('./routes');
 
@@ -46,6 +47,9 @@ app.use(function(req, res, next) {
   req.session.views = req.session.views + 1 || 1;
   next();
 });
+
+// add or remove authorize cookies
+app.use(authCookies);
 
 // routes
 app.use('/', routes);

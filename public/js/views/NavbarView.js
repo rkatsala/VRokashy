@@ -1,8 +1,9 @@
 define([
 	'backbone',
 	'models/LogoutModel',
-	'text!templates/navbarTemplate.html'
-], function(Backbone, LogoutModel, navbarTemplate) {
+	'text!templates/navbarTemplate.html',
+	'cookies'
+], function(Backbone, LogoutModel, navbarTemplate, Cookies) {
 	var NavbarView = Backbone.View.extend({
 		el: '#navbar',
 
@@ -17,9 +18,8 @@ define([
 			var logout = new LogoutModel();
 			logout.save({isNew: true}, {
 				success: function(logout, response, options) {
-					// var userView = new UserView({id: response._id});
-					// userView.render();
-					Backbone.history.navigate('/', {trigger: true});
+					Cookies.remove('userId');
+					Cookies.remove('isAdmin');
 				},
 				error: function(logout, xhr, options) {
 					console.error("Logout error", xhr);
@@ -30,7 +30,8 @@ define([
 
 		render: function() {
 			var self = this;
-			this.$el.html( self.template() );
+			var userId = Cookies.get('userId');
+			this.$el.html( self.template({ userId: userId }) );
 
 			return this;
 		}

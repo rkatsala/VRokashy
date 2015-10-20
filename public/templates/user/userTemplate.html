@@ -2,13 +2,25 @@
 <p><%= user.email %></p>
 <dl>
 	<% user.posts.forEach(function(post) {%>
-		<dd class="posts text-muted text-right"><%= new Date(Date.parse(post.date)).toLocaleString("ua") %></dd>
-		<dt class="posts bg-info mark"><%= post.body %></dt>
+	<div class="posts" id="<%= post._id %>">
+		<dd class="posts text-muted text-right">
+			<%= new Date(Date.parse(post.date)).toLocaleString("ua") %>
+		</dd>
+		<dt class="posts bg-info mark">
+			<%= post.body %>
+			<% if (userId && (userId == user._id)) { %>
+				<button class="del-btn">Видалити</button>
+			<% } %>
+		</dt>
+	</div>
 	<% });%>
 </dl>
 
-<form>
-	<textarea id="add-post" rows="3" class="form-control">Текст нового поста</textarea>
-	<br>
-	<button type="button" id="add-post-btn">Зберегти</button>
-</form>
+<% if (userId && (userId == user._id)) { %>
+	<form>
+		<textarea id="add-post" rows="3" class="form-control">Текст нового поста</textarea>
+		<br>
+		<button type="button" id="add-post-btn">Зберегти</button>
+		<button type="reset">Очистити</button>
+	</form>
+<% } %>

@@ -4,7 +4,8 @@ requirejs.config({
 		underscore: 'libs/underscore/underscore',
 		backbone: 'libs/backbone/backbone',
 		text: 'libs/text/text',
-		templates: '../templates'
+		templates: '../templates',
+		cookies: 'libs/js-cookie/src/js.cookie'
 	},
 	shim: {
 		'underscore': {

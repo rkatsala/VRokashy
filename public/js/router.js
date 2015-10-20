@@ -5,6 +5,7 @@ define([
 	'views/user/UsersListView',
 	'views/user/UserView'
 ], function(Backbone, NavbarView, MainView, UsersListView, UserView) {
+
 	var Router = Backbone.Router.extend({
 		routes: {
 			"": "main",
